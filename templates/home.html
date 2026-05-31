@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{%block title%}Home{%endblock title%}
+
+{%block content%}
+
+{%if user.is_authenticated%}
+    <p>Hi {{user.username}}!</p>
+    <form action="{%url 'logout' %}" method="post" > {%csrf_token%}
+        <button type="submit">Log Out</button>
+    </form>
+    <br />
+    <h3>Welcome to the website!</h3>
+    <br />
+    <style>
+    .postbtn {
+        font-size: 30px; 
+        text-decoration: none; 
+        color: black;
+        transition: color 0.2s ease;
+    }
+    .postbtn:hover {
+        background-color: #0056b3;
+        color: white;
+    }
+    </style>
+    <button><a href="{%url 'article_list' %}" class="postbtn">Click here to see all posts!</a></button>
+    {%else%}
+    <p>You are not logged in!</p>
+    <a href="{%url 'login' %}">Login</a> |
+    <a href="{%url 'signup' %}">Sign Up</a>
+{%endif%}
+
+{%endblock content%}
