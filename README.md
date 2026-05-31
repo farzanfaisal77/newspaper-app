@@ -83,7 +83,7 @@ A modern, secure, and production-ready newspaper and blogging platform built wit
 ---
 
 ## 🚀 Refer here for my Render or other production deployment checklist
-<a href="https://app.notion.com/p/Deployment-CheckList-for-Render-365e2135265480ceafbaf96bb1d11768">Deployment checklist</a>
+### <a href="https://app.notion.com/p/Deployment-CheckList-for-Render-365e2135265480ceafbaf96bb1d11768">Deployment checklist</a>
 
 ## Local Deployment
 
