@@ -1,5 +1,8 @@
 # 📰 Newspaper App
 
+## <a href="https://newspaper-app-0ql6.onrender.com">LINK TO THE APP</a>
+<br />
+
 A modern, secure, and production-ready newspaper and blogging platform built with **Django** using **PostgreSQL**(SQLite locally). This application features a custom user model, full CRUD capabilities for articles, and interactive article comments.
 
 ---
