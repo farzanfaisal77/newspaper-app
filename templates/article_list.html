@@ -6,7 +6,7 @@
 
 {% for article in article_list %}
 
-<a href="{%url 'article_detail' article.pk %}" style="text-decoration:none;"><div class="card">
+<a href="{%url 'article_detail' article.pk %}" style="text-decoration:none; color:black;"><div class="card">
     <div class="card-header">
         <span class="font-weight-bold">{{article.title}}</span>
         <span class="text-muted">by {{article.author}} |
