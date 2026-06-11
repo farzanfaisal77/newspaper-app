@@ -41,6 +41,13 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     "articles.apps.ArticlesConfig",
 ]
+
+REST_FRAMEWORK={
+    "DEFAULT_PERMISSION_CLASSES" :[
+        "rest_framework.permissions.AllowAny",
+    ]
+}
+
 TIME_ZONE = 'Asia/Kolkata'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
