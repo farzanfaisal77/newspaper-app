@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "whitenoise.runserver_nostatic",
+    #rest apis
+    "rest_framework",
     #local
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
