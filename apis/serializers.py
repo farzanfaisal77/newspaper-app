@@ -7,3 +7,13 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=CustomUser
         fields=("id", "username", "email", "age",)
+    
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Article
+        fields=("id", "author", "title", "body", "date")
+        
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Comment
+        fields=("id", "author", "article", "comment")

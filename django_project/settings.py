@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     #rest apis
     "rest_framework",
+    "corsheaders",
     #local
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
