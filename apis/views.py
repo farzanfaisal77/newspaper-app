@@ -36,7 +36,11 @@ class CommentList(generics.ListCreateAPIView):
     
     
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes=
-    queryset=Comment.objects.all()
+    #permission_classes=
     serializer_class=CommentSerializer
+    def get_object(self):
+        return Comment.objects.get(
+            article_id=self.kwargs['article_pk'],
+            id=self.kwargs['comment_pk']
+        )
     
