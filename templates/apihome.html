@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>API Endpoints</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      line-height: 1.6;
+    }
+    h1 {
+      font-size: 2em;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+    }
+    h2 {
+      font-size: 1.5em;
+      margin-top: 30px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 15px;
+    }
+    code {
+      background-color: #f4f4f4;
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="{% url 'home' %}">&larr; Back to Homepage</a>
+
+  <h1>Available API Endpoints</h1>
+
+  <h2>1. Documentation & Schemas</h2>
+  <ul>
+    <li>
+      <strong><a href="/apis/schema/swagger-ui/">Swagger UI Sandbox</a></strong> - Test endpoints interactively.
+      <br>URL: <code>/apis/schema/swagger-ui/</code>
+    </li>
+    <li>
+      <strong><a href="/apis/schema/redoc/">ReDoc Documentation</a></strong> - Read-only API reference.
+      <br>URL: <code>/apis/schema/redoc/</code>
+    </li>
+    <li>
+      <strong><a href="/apis/schema/">OpenAPI Schema</a></strong> - Raw OpenAPI definition file.
+      <br>URL: <code>/apis/schema/</code>
+    </li>
+  </ul>
+
+  <h2>2. Authentication & Accounts</h2>
+  <ul>
+    <li>
+      <strong><a href="/apis/dj-rest-auth/login/">User Login (POST)</a></strong> - Sign in with credentials.
+      <br>URL: <code>/apis/dj-rest-auth/login/</code>
+    </li>
+    <li>
+      <strong><a href="/apis/dj-rest-auth/registration/">User Registration (POST)</a></strong> - Create a new user account.
+      <br>URL: <code>/apis/dj-rest-auth/registration/</code>
+    </li>
+    <li>
+      <strong><a href="/apis/dj-rest-auth/logout/">User Logout (POST)</a></strong> - End session.
+      <br>URL: <code>/apis/dj-rest-auth/logout/</code>
+    </li>
+    <li>
+      <strong><a href="/apis/dj-rest-auth/user/">User Details (GET, PUT, PATCH)</a></strong> - Get/update current user.
+      <br>URL: <code>/apis/dj-rest-auth/user/</code>
+    </li>
+    <li>
+      <strong><a href="/apis/dj-rest-auth/password/change/">Password Change (POST)</a></strong> - Change user password.
+      <br>URL: <code>/apis/dj-rest-auth/password/change/</code>
+    </li>
+    <li>
+      <strong><a href="/apis/dj-rest-auth/password/reset/">Password Reset (POST)</a></strong> - Request password reset mail.
+      <br>URL: <code>/apis/dj-rest-auth/password/reset/</code>
+    </li>
+    <li>
+      <strong><a href="/apis/dj-rest-auth/password/reset/confirm/">Password Reset Confirm (POST)</a></strong> - Confirm password reset.
+      <br>URL: <code>/apis/dj-rest-auth/password/reset/confirm/</code>
+    </li>
+  </ul>
+
+  <h2>3. Core Resources</h2>
+  <ul>
+    <li>
+      <strong><a href="/apis/articles/">Articles List & Create (GET, POST)</a></strong> - List articles or create a new article.
+      <br>URL: <code>/apis/articles/</code>
+    </li>
+    <li>
+      <strong>Article Details (GET, PUT, PATCH, DELETE)</strong> - Retrieve or update/delete an article.
+      <br>URL: <code>/apis/articles/&lt;article_id&gt;/</code>
+    </li>
+    <li>
+      <strong>Comments List & Create (GET, POST)</strong> - List/write comments on a post.
+      <br>URL: <code>/apis/articles/&lt;article_id&gt;/comments/</code>
+    </li>
+    <li>
+      <strong>Comment Details (GET, PUT, PATCH, DELETE)</strong> - Retrieve or update/delete a comment.
+      <br>URL: <code>/apis/articles/&lt;article_id&gt;/comments/&lt;comment_id&gt;/</code>
+    </li>
+    <li>
+      <strong><a href="/apis/users/">Users List (GET, POST)</a></strong> - Manage users (Admin only).
+      <br>URL: <code>/apis/users/</code>
+    </li>
+    <li>
+      <strong>User Details (GET, PUT, PATCH, DELETE)</strong> - Manage specific user details (Admin only).
+      <br>URL: <code>/apis/users/&lt;user_id&gt;/</code>
+    </li>
+  </ul>
+
+</body>
+</html>

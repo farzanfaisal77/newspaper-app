@@ -3,7 +3,7 @@
 ## <a href="https://newspaper-app-0ql6.onrender.com">LINK TO THE APP</a>
 <br />
 
-A modern, secure, and production-ready newspaper and blogging platform built with **Django** using **PostgreSQL**(SQLite locally). This application features a custom user model, full CRUD capabilities for articles, and interactive article comments.
+A modern, secure, and production-ready newspaper and blogging platform built with **Django** using **PostgreSQL** (SQLite locally). This application features a custom user model, full CRUD capabilities for articles, interactive article comments, and a complete REST API wrapper.
 
 ---
 
@@ -21,6 +21,12 @@ A modern, secure, and production-ready newspaper and blogging platform built wit
 - **💬 Comments:**
   - Viewers can leave comments on individual articles.
 
+- **🔌 Fully-Featured REST API:**
+  - Endpoints for users, articles, and article-specific comments.
+  - Secure token and session authentication.
+  - Granular, object-level permissions ensuring data integrity.
+  - Interactive browser-based documentation.
+
 - **🎨 Responsive Design:**
   - Crafted with a modern **Bootstrap 5** framework.
   - Clean forms using `django-crispy-forms` with the Bootstrap 5 template pack etc.
@@ -30,13 +36,17 @@ A modern, secure, and production-ready newspaper and blogging platform built wit
   - Production-ready static asset pipeline using **WhiteNoise**.
   - Flexible database routing supporting SQLite locally and PostgreSQL in production using `dj-db-url`.
   - Configured for effortless deployment on platforms like **Render** (check for my deployment checklist below).
-  - PostgreSQL using Neon cloud database. and SQLite for local deployment.
+  - PostgreSQL using Neon cloud database, and SQLite for local deployment.
  
 ---
 
 ## 🛠️ Tech Stack & Dependencies
 
-- **Framework:** Django 6.0+
+- **Core Web Framework:** Django 6.0+
+- **API Framework:** Django REST Framework (DRF) 3.15+
+- **REST Auth & Registration:** `dj-rest-auth` & `django-allauth`
+- **API Documentation:** `drf-spectacular` (OpenAPI 3.0)
+- **CORS Management:** `django-cors-headers`
 - **Database:** PostgreSQL (SQLite locally)
 - **Styling:** Bootstrap 5, Vanilla CSS
 - **Static Assets:** WhiteNoise
@@ -50,9 +60,10 @@ A modern, secure, and production-ready newspaper and blogging platform built wit
 
 ```text
 ├── accounts/           # Custom user models, registration forms, views, and tests
+├── apis/               # Django REST Framework views, serializers, permissions, and URL routing
 ├── articles/           # Article and Comment CRUD models, custom mixins, forms, and views
 ├── pages/              # Static page layouts and homepage rendering views
-├── django_project/     # Project configuration, URLs, and production settings
+├── django_project/     # Project configuration, URLs, CORS setups, and production settings
 ├── templates/          # Global HTML templates with block-based layout inheritance
 ├── db.sqlite3          # Local database file
 ├── manage.py           # Django CLI utility
@@ -79,6 +90,62 @@ A modern, secure, and production-ready newspaper and blogging platform built wit
 - `article` (foreign key to `Article`, cascades on delete)
 - `comment` (string, max 200 chars)
 - `author` (foreign key to `CustomUser`, cascades on delete)
+
+---
+
+## 🔌 REST API & Integrations
+
+The `apis` app brings a modern API layer to the application, leveraging **Django REST Framework (DRF)** and several specialized packages:
+
+### 1. Key API Packages Used
+* **`djangorestframework`**: Powers the serialization of models and provides standard Class-Based Views for CRUD operations.
+* **`django-cors-headers`**: Configured to whitelist clients (like frontend React applications on `localhost:3000`) for cross-origin resource requests.
+* **`dj-rest-auth` & `django-allauth`**: Expose ready-to-use REST endpoints for user authentication, registration, password change, and password reset.
+* **`drf-spectacular`**: Auto-generates an OpenAPI 3.0 schema directly from the Django codebase, powering interactive documentation.
+
+### 2. Interactive Documentation Portals
+The app is self-documenting. Developers and testers can run the application locally and browse the API:
+* **Swagger UI**: Accessible at `http://127.0.0.1:8000/apis/schema/swagger-ui/` for an interactive playground.
+* **ReDoc**: Accessible at `http://127.0.0.1:8000/apis/schema/redoc/` for a clean, structural outline of the schema.
+* **Raw Schema**: Fetch the YAML schema file directly at `http://127.0.0.1:8000/apis/schema/`.
+
+### 3. API Endpoints Map
+All API routes are grouped under the `/apis/` prefix.
+
+#### 🔑 Authentication & Users
+| Endpoint | HTTP Method | Description | Access Level |
+| :--- | :--- | :--- | :--- |
+| `/apis/dj-rest-auth/registration/` | `POST` | Register a new user | Public |
+| `/apis/dj-rest-auth/login/` | `POST` | Login user & return Auth Token | Public |
+| `/apis/dj-rest-auth/logout/` | `POST` | Log out active user | Authenticated |
+| `/apis/dj-rest-auth/password/change/` | `POST` | Change active user password | Authenticated |
+| `/apis/dj-rest-auth/password/reset/` | `POST` | Trigger password reset email | Public |
+| `/apis/dj-rest-auth/password/reset/confirm/` | `POST` | Confirm reset with email token | Public |
+| `/apis/dj-rest-auth/user/` | `GET`/`PUT`/`PATCH` | Retrieve or edit active profile | Authenticated |
+| `/apis/users/` | `GET` | List all custom users in system | Admin Only |
+| `/apis/users/<int:pk>/` | `GET`/`PUT`/`PATCH`/`DELETE` | CRUD user details | Admin Only |
+
+#### 📝 Articles & Comments
+| Endpoint | HTTP Method | Description | Access Level |
+| :--- | :--- | :--- | :--- |
+| `/apis/articles/` | `GET` | List all articles | Public |
+| `/apis/articles/` | `POST` | Publish a new article | Authenticated |
+| `/apis/articles/<int:pk>/` | `GET` | Retrieve single article details | Public |
+| `/apis/articles/<int:pk>/` | `PUT`/`PATCH` | Update an existing article | Article Author / Admin |
+| `/apis/articles/<int:pk>/` | `DELETE` | Delete an article | Article Author / Admin |
+| `/apis/articles/<int:article_pk>/comments/` | `GET` | Get all comments under article | Authenticated |
+| `/apis/articles/<int:article_pk>/comments/` | `POST` | Add comment to article | Authenticated |
+| `/apis/articles/<int:article_pk>/comments/<int:comment_pk>/` | `GET` | Detail comment | Authenticated |
+| `/apis/articles/<int:article_pk>/comments/<int:comment_pk>/` | `PUT`/`PATCH` | Update a comment | Comment Author / Admin |
+| `/apis/articles/<int:article_pk>/comments/<int:comment_pk>/` | `DELETE` | Delete comment | Comment Author / Admin |
+
+### 4. API Security & Permission Model
+* **Object-Level Security**:
+  * `IsAuthorElseRead`: Prevents unauthenticated changes. Allows modification (`PUT`, `PATCH`, `DELETE`) of an article **only** if the request is from the article's author or an administrator.
+  * `RWifAuthenticated`: Comments require authentication to read or write, but modification is strictly limited to the comment author or an administrator.
+* **No Author Impersonation**:
+  * In the API serializers, `author` is marked as a `ReadOnlyField`.
+  * During creation (`perform_create`), the backend automatically associates the resource (`Article` or `Comment`) with the logged-in request user (`self.request.user`), keeping authors securely authenticated and verified.
 
 ---
 

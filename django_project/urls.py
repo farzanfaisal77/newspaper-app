@@ -12,5 +12,7 @@ urlpatterns = [
     ), name='password_reset'),
     path("accounts/", include("django.contrib.auth.urls")),
     path("articles/", include("articles.urls")),
+    path("apis/", include("apis.urls")),
+    path("api-auth/", include("rest_framework.urls")),
     path("", include("pages.urls")),
 ]

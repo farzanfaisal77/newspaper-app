@@ -34,16 +34,53 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "whitenoise.runserver_nostatic",
+    #rest apis
+    "rest_framework",
+    "corsheaders",
+    "rest_framework.authtoken",
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "drf_spectacular",
     #local
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
     "articles.apps.ArticlesConfig",
 ]
+
+REST_FRAMEWORK={
+    "DEFAULT_PERMISSION_CLASSES" :[
+        "rest_framework.permissions.AllowAny",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES":[
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+CORS_ORIGIN_WHITELIST=(
+    "http://localhost:8000",
+    "http://localhost:3000"
+)
+
+CSRF_TRUSTED_ORIGINS=["http://localhost:3000"]
+
+SPECTACULAR_SETTINGS={
+    "TITLE":"Newspaper API Documentation",
+    "DESCRIPTION":"API for Newspaper Application",
+    "VERSION":"1.0.0",
+}
+
 TIME_ZONE = 'Asia/Kolkata'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -64,6 +101,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "django.template.context_processors.request",
             ],
         },
     },
@@ -93,7 +131,7 @@ LANGUAGE_CODE = 'en-us'
 
 USE_I18N = True
 
-USE_TZ = False
+USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -113,3 +151,4 @@ EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+SITE_ID=1
