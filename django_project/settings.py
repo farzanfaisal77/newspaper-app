@@ -64,10 +64,10 @@ REST_FRAMEWORK={
 CORS_ORIGIN_WHITELIST=(
     "http://localhost:8000",
     "http://localhost:3000",
-    "https://newspaper-app-0ql6.onrender.com/",
+    "https://newspaper-app-0ql6.onrender.com",
 )
 
-CSRF_TRUSTED_ORIGINS=["http://localhost:3000","https://newspaper-app-0ql6.onrender.com/",]
+CSRF_TRUSTED_ORIGINS=["http://localhost:3000","https://newspaper-app-0ql6.onrender.com",]
 
 SPECTACULAR_SETTINGS={
     "TITLE":"Newspaper API Documentation",
