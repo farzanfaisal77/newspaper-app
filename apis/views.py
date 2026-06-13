@@ -6,7 +6,10 @@ from articles.models import Comment
 from articles.models import Article
 from .serializers import UserSerializer,ArticleSerializer,CommentSerializer
 from .permissions import IsAuthorElseRead,RWifAuthenticated
-# Create your views here.
+from django.views.generic import TemplateView
+
+class HomeView(TemplateView):
+    template_name="apihome.html"
 
 class UserList(generics.ListCreateAPIView):
     permission_classes=[IsAdminUser]

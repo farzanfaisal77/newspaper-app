@@ -1,6 +1,8 @@
-from .views import UserList,UserDetail,ArticleList,ArticleDetail,CommentList, CommentDetail
+from .views import UserList,UserDetail,ArticleList,ArticleDetail,CommentList, CommentDetail,HomeView
 from django.urls import path,include
 from drf_spectacular.views import SpectacularAPIView,SpectacularSwaggerView,SpectacularRedocView
+
+
 
 urlpatterns = [
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
@@ -14,4 +16,5 @@ urlpatterns = [
     path("articles/<int:article_pk>/comments/", CommentList.as_view(), name="comment_list"),
     path("articles/<int:pk>/", ArticleDetail.as_view(), name="article_detail"),
     path("articles/",ArticleList.as_view(), name="article_list"),
+    path("", HomeView.as_view(), name="apihome")
 ]
