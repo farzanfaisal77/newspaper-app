@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     #rest apis
     "rest_framework",
     "corsheaders",
+    "rest_framework.authtoken",
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
     #local
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
@@ -46,6 +52,10 @@ INSTALLED_APPS = [
 REST_FRAMEWORK={
     "DEFAULT_PERMISSION_CLASSES" :[
         "rest_framework.permissions.AllowAny",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES":[
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
     ]
 }
 
@@ -55,6 +65,8 @@ CORS_ORIGIN_WHITELIST=(
 )
 
 CSRF_TRUSTED_ORIGINS=["http://localhost:3000"]
+
+
 
 TIME_ZONE = 'Asia/Kolkata'
 MIDDLEWARE = [
@@ -82,6 +94,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "django.template.context_processors.request",
             ],
         },
     },
@@ -131,3 +144,4 @@ EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+SITE_ID=1
