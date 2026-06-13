@@ -150,7 +150,7 @@ All API routes are grouped under the `/apis/` prefix.
 ---
 
 ## 🚀 Refer here for my Render or other production deployment checklist
-## <a href="https://app.notion.com/p/Deployment-CheckList-for-Render-365e2135265480ceafbaf96bb1d11768">My Render Deployment checklist on notion</a>
+## <a href="https://app.notion.com/p/Deployment-Checklist-Update-37be213526548062a81af4d1a27b1f21">My Render Deployment checklist on notion</a>
 
 ## Local Deployment
 
@@ -206,6 +206,7 @@ python manage.py runserver
 ```
 Visit **`http://127.0.0.1:8000`** in your browser to view the application!
 Visit **`http://127.0.0.1:8000/admin/`** to view the django admin panel!
+Visit **`http://127.0.0.1:8000/apis/`** to view the api endpoints and documentation!
 
 ---
 
