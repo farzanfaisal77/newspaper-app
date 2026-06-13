@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "drf_spectacular",
     #local
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
@@ -56,7 +57,8 @@ REST_FRAMEWORK={
     "DEFAULT_AUTHENTICATION_CLASSES":[
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
-    ]
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 CORS_ORIGIN_WHITELIST=(
@@ -66,7 +68,11 @@ CORS_ORIGIN_WHITELIST=(
 
 CSRF_TRUSTED_ORIGINS=["http://localhost:3000"]
 
-
+SPECTACULAR_SETTINGS={
+    "TITLE":"Newspaper API Documentation",
+    "DESCRIPTION":"API for Newspaper Application",
+    "VERSION":"1.0.0",
+}
 
 TIME_ZONE = 'Asia/Kolkata'
 MIDDLEWARE = [
@@ -74,6 +80,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     "corsheaders.middleware.CorsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
