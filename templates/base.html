@@ -1,66 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Newspaper App{% endblock title %}</title>
-  <meta name="viewport" content="width=device-width,
-  initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <style>
+    .navbar-brand-custom {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn, .nav-link, .dropdown-item {
+      transition: all 0.2s ease-in-out;
+    }
+  </style>
 </head>
 
-<body>
-  <div class="container">
-    <header class="p-3 mb-3 border-bottom">
-      <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center
-          justify-content-lg-start">
-          <a class="navbar-brand" href="{% url 'home' %}">Newspaper</a>
-          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center
-            mb-md-0">
+<body class="bg-light text-dark">
+  <header class="p-3 mb-4 bg-white border-bottom shadow-sm">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <a class="navbar-brand navbar-brand-custom me-4 text-decoration-none" href="{% url 'home' %}">Newspaper App</a>
+          
+          <ul class="nav me-auto mb-0">
             {% if user.is_authenticated %}
-            <li><a href="{%url 'article_new' %}" class="nav-link px-2 link-dark">+ New</a></li>
+            <li>
+              <a href="{% url 'article_new' %}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                <i class="bi bi-plus"></i> + New Post
+              </a>
+            </li>
             {% endif %}
           </ul>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <a href="{% url 'api_home' %}" class="btn btn-sm btn-outline-success">API Endpoints</a>
+
           {% if user.is_authenticated %}
-          <a href="{% url 'api_apihome' %}" class="btn btn-success me-3">API Endpoints</a>
-          <div class="dropdown text-end">
-            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+          <div class="dropdown">
+            <a href="#" class="d-block link-secondary text-decoration-none dropdown-toggle bg-light px-3 py-1.5 rounded-pill border" id="dropdownUser1"
               data-bs-toggle="dropdown" aria-expanded="false">
-              {{ user.username }}
+              <strong>{{ user.username }}</strong>
             </a>
-            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-              <li><a class="dropdown-item" href="{% url 'password_change'%}">
-                  Change password</a></li>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="dropdownUser1">
               <li>
-                <form action="{%url 'logout' %}" method="post">{%csrf_token%}
-                    <button type='submit' class="dropdown-item bg-transparent border-0 w-100 text-start">LogOut</button>
+                <a class="dropdown-item py-2" href="{% url 'password_change' %}">
+                  <span class="small">Change password</span>
+                </a>
+              </li>
+              <li><hr class="dropdown-divider my-1"></li>
+              <li>
+                <form action="{% url 'logout' %}" method="post">{% csrf_token %}
+                  <button type="submit" class="dropdown-item text-danger py-2">
+                    <span class="small">Log Out</span>
+                  </button>
                 </form>
               </li>
             </ul>
           </div>
           {% else %}
-          <div class="text-end">
-            <a href="{% url 'api_apihome' %}" class="btn btn-success me-3">API Endpoints</a>
-            <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">Log
-              In</a>
-            <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+          <div class="d-flex gap-2">
+            <a href="{% url 'login' %}" class="btn btn-sm btn-link text-decoration-none text-secondary">Log In</a>
+            <a href="{% url 'signup' %}" class="btn btn-sm btn-primary px-3 rounded-pill">Sign Up</a>
           </div>
           {% endif %}
         </div>
+
       </div>
-    </header>
-
-    <main>
-      {% block content %}
-      {% endblock content %}
-    </main>
-  </div>
-
-  <!-- Bootstrap JavaScript Bundle -->
+    </div>
+  </header>
+  <main class="container mb-5">
+    {% block content %}
+    {% endblock content %}
+  </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>

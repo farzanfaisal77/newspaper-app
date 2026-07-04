@@ -1,34 +1,45 @@
 {% extends "base.html" %}
 
-{%block title%}Home{%endblock title%}
+{% block title %}Home{% endblock title %}
 
-{%block content%}
+{% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-8 col-lg-6">
+    
+    {% if user.is_authenticated %}
+    <div class="card shadow-sm border-0 p-4 p-md-5 bg-white rounded-3 text-center">
+      <div class="mb-3">
+        <span class="fs-1">👋</span>
+      </div>
+      <h2 class="fw-bold mb-2">Welcome back, {{ user.username }}!</h2>
+      <p class="text-secondary mb-4">Great to see you today. Ready to catch up on what's new?</p>
+      
+      <div class="d-grid gap-2 col-sm-8 mx-auto">
+        <a href="{% url 'article_list' %}" class="btn btn-primary btn-lg shadow-sm rounded-pill py-2.5 fs-6 fw-semibold">
+          Explore All Posts
+        </a>
+      </div>
+    </div>
 
-{%if user.is_authenticated%}
-    <p>Hi {{user.username}}!</p>
-    <form action="{%url 'logout' %}" method="post" > {%csrf_token%}
-        <button type="submit">Log Out</button>
-    </form>
-    <br />
-    <h3>Welcome to the website!</h3>
-    <br />
-    <style>
-    .postbtn {
-        font-size: 30px; 
-        text-decoration: none; 
-        color: black;
-        transition: color 0.2s ease;
-    }
-    .postbtn:hover {
-        background-color: #0056b3;
-        color: white;
-    }
-    </style>
-    <button><a href="{%url 'article_list' %}" class="postbtn">Click here to see all posts!</a></button>
-    {%else%}
-    <p>You are not logged in!</p>
-    <a href="{%url 'login' %}">Login</a> |
-    <a href="{%url 'signup' %}">Sign Up</a>
-{%endif%}
+    {% else %}
+    <div class="card shadow-sm border-0 p-4 p-md-5 bg-white rounded-3 text-center">
+      <div class="mb-3">
+        <span class="fs-1 text-primary">📣</span>
+      </div>
+      <h2 class="fw-bold mb-2">Welcome to ChatterFeed</h2>
+      <p class="text-secondary mb-4">Join the conversations, share your thoughts, and connect with everyone.</p>
+      
+      <div class="d-sm-flex justify-content-center gap-3">
+        <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg px-4 rounded-pill fs-6 w-100 w-sm-auto mb-2 mb-sm-0">
+          Log In
+        </a>
+        <a href="{% url 'signup' %}" class="btn btn-primary btn-lg px-4 rounded-pill fs-6 w-100 w-sm-auto">
+          Get Started
+        </a>
+      </div>
+    </div>
+    {% endif %}
 
-{%endblock content%}
+  </div>
+</div>
+{% endblock content %}
