@@ -15,5 +15,5 @@ urlpatterns = [
     path("articles/<int:article_pk>/comments/", CommentList.as_view(), name="api_comment_list"),
     path("articles/<int:pk>/", ArticleDetail.as_view(), name="api_article_detail"),
     path("articles/",ArticleList.as_view(), name="api_article_list"),
-    path("", HomeView.as_view(), name="api_api_home")
+    path("", HomeView.as_view(), name="api_home")
 ]
